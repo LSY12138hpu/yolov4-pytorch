@@ -13,24 +13,16 @@ from utils.utils import (cvtColor, get_anchors, get_classes, preprocess_input,
                          resize_image, show_config)
 from utils.utils_bbox import DecodeBox, DecodeBoxNP
 
-'''
-训练自己的数据集必看注释！
-'''
 class YOLO(object):
     _defaults = {
         #--------------------------------------------------------------------------#
-        #   使用自己训练好的模型进行预测一定要修改model_path和classes_path！
         #   model_path指向logs文件夹下的权值文件，classes_path指向model_data下的txt
-        #
-        #   训练好后logs文件夹下存在多个权值文件，选择验证集损失较低的即可。
-        #   验证集损失较低不代表mAP较高，仅代表该权值在验证集上泛化性能较好。
-        #   如果出现shape不匹配，同时要注意训练时的model_path和classes_path参数的修改
         #--------------------------------------------------------------------------#
         "model_path"        : 'model_data/yolo4_weights.pth',
         "classes_path"      : 'model_data/coco_classes.txt',
         #---------------------------------------------------------------------#
-        #   anchors_path代表先验框对应的txt文件，一般不修改。
-        #   anchors_mask用于帮助代码找到对应的先验框，一般不修改。
+        #   anchors_path代表先验框对应的txt文件
+        #   anchors_mask用于帮助代码找到对应的先验框
         #---------------------------------------------------------------------#
         "anchors_path"      : 'model_data/yolo_anchors.txt',
         "anchors_mask"      : [[6, 7, 8], [3, 4, 5], [0, 1, 2]],
@@ -53,7 +45,6 @@ class YOLO(object):
         "letterbox_image"   : False,
         #-------------------------------#
         #   是否使用Cuda
-        #   没有GPU可以设置成False
         #-------------------------------#
         "cuda"              : True,
     }
@@ -416,12 +407,7 @@ class YOLO(object):
 class YOLO_ONNX(object):
     _defaults = {
         #--------------------------------------------------------------------------#
-        #   使用自己训练好的模型进行预测一定要修改onnx_path和classes_path！
         #   onnx_path指向logs文件夹下的权值文件，classes_path指向model_data下的txt
-        #
-        #   训练好后logs文件夹下存在多个权值文件，选择验证集损失较低的即可。
-        #   验证集损失较低不代表mAP较高，仅代表该权值在验证集上泛化性能较好。
-        #   如果出现shape不匹配，同时要注意训练时的onnx_path和classes_path参数的修改
         #--------------------------------------------------------------------------#
         "onnx_path"         : 'model_data/models.onnx',
         "classes_path"      : 'model_data/coco_classes.txt',
